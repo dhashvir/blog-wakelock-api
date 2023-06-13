@@ -21,6 +21,7 @@ async function releaseFn() {
 
 async function requestWakeLock() {
   let wakeLock: WakeLockSentinel | null = null;
+  // Surround with try/catch since browser can reject the request.
   try {
     wakeLock = await navigator.wakeLock.request("screen");
     // Listen if screen waked has been released.
@@ -31,8 +32,11 @@ async function requestWakeLock() {
 
     info.textContent = `Wake Lock is active. Released: ${wakeLock?.released}`;
     console.log(`Wake Lock is active. Released: ${wakeLock?.released}`);
-  } catch (err) {
+  } catch (err: unknown) {
     // The Wake Lock request has failed - usually system related, such as battery.
+    if (err instanceof Error) {
+      console.log(`${err.name}, ${err.message}`);
+    }
   }
   return wakeLock;
 }
