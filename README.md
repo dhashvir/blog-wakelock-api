@@ -1,5 +1,7 @@
 # 🚀Wake Lock API
 
+Link to demo: https://dhashvir.github.io/blog-wakelock-api/
+
 This demo will request a screen wake lock when the request button is clicked.
 
 If page visibility is changed while it has an active lock, it will reacquire the lock when it is visible again.
